@@ -39,6 +39,7 @@ services:
     container_name: project_mysql
     networks:
       - project_network
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: project_pma
