@@ -8,6 +8,8 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
+
+
     /**
      * Run the database seeds.
      */
@@ -15,4 +17,16 @@ class UserSeeder extends Seeder
     {
         User::factory()->count(5000)->create();
     }
+
+
+
+
+
+
+    
+
+
+
+
+
 }

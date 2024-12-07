@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\PostController;
-
-
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cache;
+
+Route::prefix('core/v1')->group(base_path('routes/core/api_v1.php'));
 
 
-Route::get("posts", [PostController::class,"posts"]);
 
 
 

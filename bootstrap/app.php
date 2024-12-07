@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
-
+        // $exceptions->renderable(function(Exception $e){
+        //     return response()->json([
+        //         'status' => 401,
+        //         'message' => $e->getMessage()
+        //     ]);
+        // });
+        // $exceptions->renderable(function(Exception $e){
+        //     return response()->json([
+        //         'status' => 500,
+        //         'message' => $e->getMessage()
+        //     ]);
+        // });
         //
     })->create();
