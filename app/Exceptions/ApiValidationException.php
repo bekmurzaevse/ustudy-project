@@ -23,4 +23,7 @@ class ApiValidationException extends Exception
             'errors' => $this->validator->errors()
         ], 422);
     }
+
+
+
 }

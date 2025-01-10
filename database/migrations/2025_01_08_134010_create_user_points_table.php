@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_points', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('desc');
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('points')->default(0);
+            $table->unsignedBigInteger('all_points')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_points');
     }
 };

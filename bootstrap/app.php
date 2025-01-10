@@ -23,33 +23,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'ability' => CheckForAnyAbility::class,
         ]);
 
-        // $middleware->group('api', function(){})
         $middleware->group('api',[
             \App\Http\Middleware\ApiJson::class,
         ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // $exceptions->renderable(function(AuthenticationException $e){
-        //     return response()->json([
-        //         'status' => Response::HTTP_UNAUTHORIZED,
-        //         // 'message' => $e->getMessage()
-        //         'message' => "Login qilin`"
-        //     ], Response::HTTP_UNAUTHORIZED);
-        // });
-        // $exceptions->renderable(function(AuthorizationException $e){
-        //     return response()->json([
-        //         'status' => Response::HTTP_FORBIDDEN,
-        //         'message' => "Sizde huquq joq!"
-        //     ], Response::HTTP_FORBIDDEN);
-        // });
-        // // });
-        // $exceptions->renderable(function(\Throwable $e){
-        //     return response()->json([
-        //         'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-        //         'message' => "Server tareptegi qatelik"
-        //     ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        // });
+
         $exceptions->render(function (AuthenticationException $ex) {
             return response()->json([
                 'status' => Response::HTTP_UNAUTHORIZED,

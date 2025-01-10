@@ -2,53 +2,37 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\Core\v1\Auth\LoginAction;
+use App\Actions\Core\v1\Auth\RefreshTokenAction;
+use App\Dto\Core\v1\Auth\LoginDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use App\TokenAbilityEnum;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+
+    public function login(LoginRequest $request, LoginAction $action): JsonResponse
     {
-        try{
-            $user = User::where("email", $request->email)->firstOrFail();
-            if(!Hash::check($request->password, $user->password)){
-                throw new AuthenticationException();
-            }
-            auth()->login($user);
-
-
-            return response()->json([
-                'token'=> $user->createToken('core api')->plainTextToken,
-            ]);
-        }catch(ModelNotFoundException $e){
-            throw new ModelNotFoundException("Paydalaniwshi tabilmadi!");
-        }
+        return $action(LoginDto::from($request));
     }
 
-    public function test(LoginRequest $request)
+    public function refreshToken(RefreshTokenAction $action)
     {
-        return "TEST";
-    }
+        // $accessTokenExpiration = now()->addMinutes(config('sanctum.ac_expiration'));
 
-    public function refreshToken()
-    {
-        $accessTokenExpiration = now()->addMinutes(config('sanctum.ac_expiration'));
+        // $accessToken =  auth()->user()->createToken(
+        //     name: 'access token',
+        //     abilities: [TokenAbilityEnum::ACCESS_TOKEN->value],
+        //     expiresAt: $accessTokenExpiration
+        // );
 
-        $accessToken =  auth()->user()->createToken(
-            name: 'access token',
-            abilities: [TokenAbilityEnum::ACCESS_TOKEN->value],
-            expiresAt: $accessTokenExpiration
-        );
-
-        return response()->json([
-            'access_token' => $accessToken->plainTextToken,
-            'at_expired_at' => $accessTokenExpiration->format('Y-m-d H:i:s'),
-        ]);
+        // return response()->json([
+        //     'access_token' => $accessToken->plainTextToken,
+        //     'at_expired_at' => $accessTokenExpiration->format('Y-m-d H:i:s'),
+        // ]);
+        return $action();
     }
 
     public function logout()

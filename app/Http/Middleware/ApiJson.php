@@ -17,7 +17,6 @@ class ApiJson
     (Request $request, Closure $next): Response
     {
         $request->headers->set('Accept', "application/json");
-        // dd($request->header("Accept"));
         return $next($request);
     }
 }
